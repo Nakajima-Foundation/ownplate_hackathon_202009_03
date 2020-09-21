@@ -35,7 +35,6 @@
     </v-dialog>
     <h1>Menu List</h1>
       <v-row v-for="(menu, key) in menus" :key="key">
-    <v-row>
       <v-col>
         <h1>Menu List</h1>
       </v-col>
@@ -108,6 +107,7 @@ export default {
       } else {
         this.selectedItem.num --
       }
+    },
     link_order_accept: function(){
       this.$router.push({ name: 'orderAccept', query: { restaurantId: this.$route.query.restaurantId }})
     }
