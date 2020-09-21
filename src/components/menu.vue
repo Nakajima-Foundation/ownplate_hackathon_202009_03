@@ -1,17 +1,16 @@
 <template>
   <div id="app" class="container">
-    <v-row>
-      aaaaa
-    </v-row>
     <h1>Menu List</h1>
-    <ul>
-      <li v-for="(menu, key) in menus" :key="key">
-        <img :src="menu.itemInfo.image" />
-        <span class="name">{{menu.itemInfo.name}}</span>
-        <span class="price">{{menu.price.price}}円</span>
-        <p>{{menu.itemInfo.description}}</p>
-      </li>
-    </ul>
+      <v-row v-for="(menu, key) in menus" :key="key">
+        <v-col cols="6">
+          <img :src="menu.itemInfo.image" />
+        </v-col>
+        <v-col cols="6">
+          <span class="name">{{menu.itemInfo.name}}</span>
+          <span class="price">{{menu.price.price}}円</span>
+          <p>{{menu.itemInfo.description}}</p>
+        </v-col>   
+      </v-row>
   </div>
 </template>
 <style scoped>
