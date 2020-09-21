@@ -11,9 +11,13 @@
         </v-toolbar>
         <v-row no-gutters class="align-baseline">
           <v-col offset="2" cols="2">
-            <v-btn @click="changeCourtNum(false)">-</v-btn>
+            <v-btn @click="changeCountNum(-1)">-</v-btn>
           </v-col>
-          <v-col class="ma-2" offset="3" cols="2">
+          <v-col
+            color="primary"
+            offset="1"
+            cols="2"
+          >
             <v-text-field
               label="個数"
               v-model="selectedItem.num"
@@ -21,16 +25,16 @@
               :rules="[v => Number(v)>=0 || '個数は0以上で指定ください']"
             />
           </v-col>
-          <v-col offset="2" cols="2">
-            <v-btn @click="changeCourtNum(true)">+</v-btn>
+          <v-col offset="1" cols="2">
+            <v-btn @click="changeCountNum(1)">+</v-btn>
           </v-col>
         </v-row>
         <v-text-field
-          class="ma-4"
+          class="mx-8"
           label="金額???内税????"
           :value="itemTotal"
           background-color="white"
-          />
+        />
       </v-card>
     </v-dialog>
     <v-row>
@@ -100,15 +104,15 @@ export default {
       this.selectedItem = this.ls_data[index]
       this.showDialog=true
     },
-    changeCourtNum(incre) {
-      if (incre) {
-        this.selectedItem.num ++
-      } else {
-        this.selectedItem.num --
-      }
+    changeCountNum(diff) {
+      this.selectedItem.num += diff
     },
     link_order_accept: function(){
+      this.setItemLocalStorage()
       this.$router.push({ name: 'orderAccept', query: { restaurantId: this.$route.query.restaurantId }})
+    },
+    setItemLocalStorage() {
+      localStorage.setItem("items", JSON.stringify(this.ls_data));
     }
   },
   mounted: function(){
@@ -120,7 +124,7 @@ export default {
       .then(data => {
         this.menus = data.payload.menus;
         this.ls_data = this.menus.map(x => ({name: x.itemInfo.name, num: 0, price: x.price.price}));
-        localStorage.setItem("items", JSON.stringify(this.ls_data));
+        this.setItemLocalStorage()
       });
   }
 }
