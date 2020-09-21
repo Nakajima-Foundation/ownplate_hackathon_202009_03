@@ -15,6 +15,7 @@
         <h1>Order Menu</h1>
       </v-col>
       <v-spacer></v-spacer>
+      <v-col/>
       <v-col>
         <v-btn rounded large color="primary"  @click="link_accounting" class="btn">注文を確定する</v-btn>
       </v-col>
