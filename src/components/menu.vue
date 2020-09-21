@@ -94,6 +94,9 @@ export default {
     itemTotal() {
       const selectItem = this.selectedItem
       return selectItem.num * selectItem.price
+    },
+    totalNums: () => {
+      return this.ls_data.map(x => x.num).reduce((acc, cur) => acc + cur);
     }
   },
   methods: {
@@ -110,11 +113,6 @@ export default {
     },
     link_order_accept: function(){
       this.$router.push({ name: 'orderAccept', query: { restaurantId: this.$route.query.restaurantId }})
-    }
-  },
-  computed: {
-    totalNums: () => {
-      return this.ls_data.map(x => x.num).reduce((acc, cur) => acc + cur);
     }
   },
   mounted: function(){
