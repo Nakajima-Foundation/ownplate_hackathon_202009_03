@@ -107,8 +107,7 @@ p {
 }
 .to_menu {
   width: 150px;
-  padding-top: 8px !important;
-  font-size: 25px;
+  font-size: 23px;
   margin-top: 30px;
   display: block;
 }
