@@ -9,7 +9,7 @@
       <p v-else style="text-align:center;">席番号無し</p>
       <vue-qrcode
         :value="url"
-        :option="{width: '15%'}"
+        :option="{width: '20%'}"
       />
     </v-col>
   </v-row>
@@ -35,10 +35,10 @@ export default {
   },
   methods: {
     getLinks(origin, restaurantId) {
-      const maxIssueNumber = 48
+      const maxIssueNumber = 49
       const links = [...Array(maxIssueNumber)].map((_, i) => {
-        const seatid = i < 42 ? seatid: 9999
-        const link = encodeURI(`${origin}/menu?restaurantid=${restaurantId}&seatid=${seatid}`)
+        const seatid = i < 42 ? i+1: 9999
+        const link = encodeURI(`${origin}?restaurant-id=${restaurantId}&seat-id=${seatid}`)
         return link
 
       })
