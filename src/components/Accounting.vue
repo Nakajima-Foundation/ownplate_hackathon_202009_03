@@ -1,31 +1,18 @@
 <template>
   <div class="accounting">
-    <h2>確認</h2>
-    <table>
-      <tr>
-        <th class="cuisine_name">メニュー</th>
-        <th class="cuisine_name">注文数</th>
-        <th class="cuisine_price">金額</th>
-      </tr>
-      <tr class="items" v-for="item in items" :key="item.name">
-        <td class="cuisine_name">{{ item.name }}</td>
-        <td class="cuisine_num">{{ item.num }}</td>
-        <td class="cuisine_price">¥{{ item.price }}</td>
-      </tr>
-      <tr class="sum_price">
-        <td></td>
-        <td>
-          <b>合計</b>
-        </td>
-        <td>
-          <b>¥{{ sumPrice() }}</b>
-        </td>
-      </tr>
-    </table>
-
+    <h2 class="title">確認</h2>
+    <v-data-table
+    class="account_table"
+      :hide-default-footer="true"
+      mobile-breakpoint="0"
+      :disable-sort="true"
+      :headers="headers"
+      :items="items"
+    ></v-data-table>
+    <div class="sum_price">合計&emsp;¥{{ sumPrice() }}</div>
     <div class="account_proceed">
-      <router-link class="to_menu" to="/menu" tag="button">追加注文</router-link>
-      <button class="call_staff" @click="runAccount">お会計する</button>
+      <v-btn class="to_menu" @click="toMenu" color="primary">追加注文</v-btn>
+      <v-btn class="call_staff" @click="runAccount" color="error">お会計する</v-btn>
     </div>
   </div>
 </template>
@@ -35,8 +22,23 @@ import { db } from "@/plugins/firebase";
 
 export default {
   name: "account",
-  data: function () {
+  data: () => {
     return {
+      headers: [
+        {
+          text: "メニュー",
+          align: "start",
+          value: "name",
+        },
+        {
+          text: "注文数",
+          value: "num",
+        },
+        {
+          text: "金額",
+          value: "price",
+        },
+      ],
       items: [
         {
           name: "麻婆豆腐",
@@ -87,16 +89,22 @@ export default {
         sum_price: this.sumPrice(),
       });
     },
+    toMenu() {
+      this.$router.push("/menu");
+    },
   },
 };
 </script>
 
 <style>
-table {
-  width: calc(100% - 60px);
-  text-align: left;
+.title {
+  font-weight: normal;
+}
+.account_table {
+    margin-top: 20px;
 }
 .accounting {
+  margin-top: 30px;
   margin-left: 30px;
   margin-right: 30px;
 }
@@ -108,7 +116,8 @@ table {
   margin-top: 30px;
 }
 .sum_price {
-  font-size: 18px;
+  font-size: 20px;
+  text-align: right;
 }
 .account_proceed {
   margin-top: 20px;
