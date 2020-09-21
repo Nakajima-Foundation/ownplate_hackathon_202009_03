@@ -29,7 +29,7 @@ li.price{
 <script>
 // https://omochikaeri.com/api/1.0/restaurants/5WmWRzIbF7ilJcigW7Vx/menus
 // https://omochikaeri.com/api/1.0/restaurants/{restaurant_id}/menus
-import axios from "axios";
+// import axios from "axios";
 export default {
   components: {
   },
