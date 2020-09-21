@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     link_order_accept: function(){
-
+      this.$router.push({ name: 'orderAccept', query: { restaurantId: this.$route.query.restaurantId }})
     }
   },
   mounted: function(){
