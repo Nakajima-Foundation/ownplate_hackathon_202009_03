@@ -1,11 +1,5 @@
 <template>
-  <div id="app" class="container">
-    <v-dialog v-model="showDialog" dark>
-      <v-card>
-        <v-toolbar dark></v-toolbar>
-      </v-card>
-    </v-dialog>
-
+  <div class="container">
     <order-header @click="link_accounting()" btn-string="注文を確定する" />
 
     <v-div v-for="(menu, key) in menus" :key="key">
@@ -40,27 +34,31 @@ export default {
       menus: [],
       numOrder: 0,
       ls_data: [],
-      showDialog: false,
     }
+  },
+  async created() {
+    await Promise.all([this.fetchRemoteData(), this.fetchLocalData()]);
   },
   methods: {
-    link_accounting: function(){
-      this.$router.push({ name: 'account'})
+    valid(menus) {
+      console.log(menus);
+      return menus.filter(menu => {
+        return menu.num !== 0
+      })
     },
-    onOpenDialog(index) {
-      console.log({index})
-      this.showDialog=true
-    }
+    link_accounting(){
+      this.$router.push({ name: 'account', query: { restaurant_id: this.$route.query.restaurant_id }})
+    },
+    async fetchRemoteData() {
+      const restaurant_id = this.$route.query.restaurant_id;
+      const url = `https://omochikaeri.com/api/1.0/restaurants/${restaurant_id}/menus`;
+      const response = await fetch(url, {mode: 'cors'})
+      const menuJson = await response.json()
+      this.menus = menuJson.payload.menus
+    },
+    async fetchLocalData() {
+      this.ls_data = await JSON.parse(localStorage.getItem("items")) || [];
+    },
   },
-  mounted: function(){
-    const restaurant_id = this.$route.query.restaurantId;
-    const url = `https://omochikaeri.com/api/1.0/restaurants/${restaurant_id}/menus`;
-    fetch(url, {
-      mode: 'cors'
-    }).then(response => response.json())
-      .then(data => this.menus = data.payload.menus);
-
-    this.ls_data = JSON.parse(localStorage.getItem("items")) || [];
-  }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container">
+  <div class="container">
     <v-dialog v-model="showDialog" max-width="500" height="300px">
       <v-card>
         <v-toolbar dark>{{ selectedItem.name }}</v-toolbar>
@@ -78,9 +78,6 @@ export default {
       const selectItem = this.selectedItem
       return selectItem.num * selectItem.price || 0
     },
-    totalNums() {
-      return this.ls_data.map(x => x.num).reduce((acc, cur) => acc + cur, 0);
-    },
     btnString () {
       const totalNums = this.ls_data.map(x => x.num).reduce((acc, cur) => acc + cur, 0);
       if(totalNums) return "注文画面へ進む " + "(" + totalNums + ")";
@@ -97,22 +94,22 @@ export default {
     },
     link_order_accept: function(){
       this.setItemLocalStorage()
-      this.$router.push({ name: 'orderAccept', query: { restaurantId: this.$route.query.restaurantId }})
+      this.$router.push({ name: 'orderAccept', query: { restaurant_id: this.$route.query.restaurant_id }})
     },
     setItemLocalStorage() {
       localStorage.setItem("items", JSON.stringify(this.ls_data));
     }
   },
   mounted: function(){
-    const restaurant_id = this.$route.query.restaurantId;
+    const restaurant_id = this.$route.query.restaurant_id;
     const url = `https://omochikaeri.com/api/1.0/restaurants/${restaurant_id}/menus`;
     fetch(url, {
       mode: 'cors'
     }).then(response => response.json())
       .then(data => {
+        console.log(data);
         this.menus = data.payload.menus;
         this.ls_data = this.menus.map(x => ({name: x.itemInfo.name, num: 0, price: x.price.price}));
-        this.setItemLocalStorage()
       });
   }
 }

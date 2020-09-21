@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>いらっしゃいませ</h1>
-    <!-- <h2 v-if="restaurant !== null">{{ restaurant.info.name }}{{ seatId }}席</h2> -->
+    <h2 v-if="restaurant !== null">{{ restaurant.info.name }}{{ seatId }}席</h2>
     <p>何名様ですか？</p>
     <div class="customer_num_container">
       <v-btn color="success" text class="customer_minus-button" @click="minus">−</v-btn>
@@ -27,17 +27,18 @@ export default {
       restaurants: null,
       restaurant: null,
       seatId: "",
+      restaurant_id: ""
     };
   },
   created: async function () {
-    const restaurantId = this.$route.query.restaurantId;
-    this.seatId = this.$route.query.seatid;
+    this.restaurant_id = this.$route.query.restaurant_id;
+    this.seatId = this.$route.query.seat_id;
     const url = `https://omochikaeri.com/api/1.0/restaurants/`;
     const response = await fetch(url, { mode: "cors" });
     const responseJson = await response.json();
     this.restaurants = responseJson.payload.restaurants;
     this.restaurant = this.restaurants.find(
-      (restaurant) => restaurant.id === restaurantId
+      (restaurant) => restaurant.id === this.restaurant_id
     );
   },
   methods: {
@@ -53,7 +54,7 @@ export default {
       localStorage.setItem("start_time", Date.now().toString());
       localStorage.setItem("customer_num", this.customer_num);
       localStorage.setItem("transportation", this.transportation);
-      this.$router.push("/menu");
+      this.$router.push(`/menu?restaurant_id=${this.restaurant_id}`);
     },
     minus() {
       if (this.customer_num < 1) {
@@ -77,6 +78,9 @@ h1 {
 h2 {
   font-weight: normal;
   font-size: 30px;
+}
+p {
+  margin-top: 30px;
 }
 .home {
   margin-left: 30px;

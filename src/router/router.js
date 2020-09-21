@@ -3,7 +3,7 @@ import QrList from "@/components/QRList"
 import Accounting from '@/components/Accounting'
 import menu from "@/components/menu";
 import OrderAccept from "@/components/OrderAccept";
-
+import Done from "@/components/Done"
 
 export default [
   {
@@ -34,5 +34,10 @@ export default [
     path: "/order_accept",
     name: "orderAccept",
     component: OrderAccept,
+  },
+  {
+    path: "/done",
+    name: "done",
+    component: Done,
   }
 ];
