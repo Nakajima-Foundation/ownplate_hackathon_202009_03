@@ -1,5 +1,7 @@
 import Home from "@/components/Home";
 import QrList from "@/components/QRList"
+import menu from "@/components/menu";
+
 
 export default [
   {
@@ -15,5 +17,10 @@ export default [
     path: "/qr-list",
     name: "qrlist",
     component: QrList,
+  },
+  {
+    path: "/menu",
+    name: "menu",
+    component: menu,
   },
 ];
