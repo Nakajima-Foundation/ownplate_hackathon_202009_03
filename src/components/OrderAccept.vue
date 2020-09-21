@@ -10,10 +10,13 @@
               class="grey darken-4"
             />
         </v-col>
-        <v-col cols="6">
+        <v-col cols="4">
           <span class="name">{{menu.itemInfo.name}}</span>
           <span class="price">{{menu.price.price}}円</span>
           <p>{{menu.itemInfo.description}}</p>
+        </v-col>
+        <v-col cols="2">
+          <span class="num">{{ls_data[key].num || 0}}</span>
         </v-col>
       </v-row>
   </div>
@@ -42,7 +45,8 @@ export default {
   },
   data() {
     return {
-      menus: []
+      menus: [],
+      ls_data: []
     }
   },
   methods: {
@@ -54,6 +58,8 @@ export default {
       mode: 'cors'
     }).then(response => response.json())
       .then(data => this.menus = data.payload.menus);
+
+    this.ls_data = JSON.parse(localStorage.getItem("items")) || [];
   }
 }
 </script>
