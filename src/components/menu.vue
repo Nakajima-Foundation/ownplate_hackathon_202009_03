@@ -35,6 +35,16 @@
     </v-dialog>
     <h1>Menu List</h1>
       <v-row v-for="(menu, key) in menus" :key="key">
+    <v-row>
+      <v-col>
+        <h1>Menu List</h1>
+      </v-col>
+      <v-spacer></v-spacer>
+      <v-col>
+        <v-btn rounded large color="primary" @click="link_order_accept" class="btn">注文画面へ進む</v-btn>
+      </v-col>
+    </v-row>
+     <v-row v-for="(menu, key) in menus" :key="key">
         <v-col cols="6">
           <v-img
             :src="menu.itemInfo.image"
@@ -57,6 +67,15 @@
       </v-row>
   </div>
 </template>
+<style scoped>
+.top{
+  display: flex;
+  justify-content: space-between;
+}
+.btn{
+  float: right;
+}
+</style>
 <script>
 // https://omochikaeri.com/api/1.0/restaurants/5WmWRzIbF7ilJcigW7Vx/menus
 // https://omochikaeri.com/api/1.0/restaurants/{restaurant_id}/menus
@@ -89,6 +108,8 @@ export default {
       } else {
         this.selectedItem.num --
       }
+    link_order_accept: function(){
+      this.$router.push({ name: 'orderAccept', query: { restaurantId: this.$route.query.restaurantId }})
     }
   },
   mounted: function(){
