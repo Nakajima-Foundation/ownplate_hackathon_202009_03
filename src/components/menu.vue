@@ -50,7 +50,7 @@
         <v-col cols="6">
           <v-img
             :src="menu.itemInfo.image"
-            style="width: 20%"
+            style="width: 60%"
             contain
             class="grey darken-4"
             />
@@ -96,7 +96,8 @@ export default {
   computed: {
     itemTotal() {
       const selectItem = this.selectedItem
-      return selectItem.num * selectItem.price
+      const total = selectItem.num * selectItem.price
+      return selectItem.id ? total: 0
     },
     totalNums() {
       return this.ls_data.map(x => x.num).reduce((acc, cur) => acc + cur, 0);
