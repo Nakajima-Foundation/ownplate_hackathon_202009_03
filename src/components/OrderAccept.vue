@@ -1,51 +1,40 @@
 <template>
   <div id="app" class="container">
-    <v-dialog
-      v-model="showDialog"
-      dark
-    >
+    <v-dialog v-model="showDialog" dark>
       <v-card>
-        <v-toolbar dark>
-        </v-toolbar>
+        <v-toolbar dark></v-toolbar>
       </v-card>
     </v-dialog>
 
-    <v-row>
-      <v-col>
-        <h1>メニュー</h1>
-      </v-col>
-      <v-spacer></v-spacer>
-      <v-col/>
-      <v-col>
-        <v-btn rounded large color="error"  @click="link_accounting" class="btn">注文を確定する</v-btn>
-      </v-col>
-    </v-row>
-      <v-row v-for="(menu, key) in menus" :key="key">
+    <order-header @click="link_accounting()" btn-string="注文を確定する" />
+
+    <v-div v-for="(menu, key) in menus" :key="key">
+      <v-divider />
+
+      <v-row>
         <v-col cols="6">
-           <v-img
-              :src="menu.itemInfo.image"
-              width="60%"
-              contain
-              class="grey darken-4"
-            />
+          <v-img :src="menu.itemInfo.image" width="60%" contain class="grey darken-4" />
         </v-col>
         <v-col cols="4">
-          <span class="name font-weight-bold">{{menu.itemInfo.name}} </span>
+          <span class="name font-weight-bold">{{menu.itemInfo.name}}</span>
           <span class="price font-weight-bold">{{menu.price.price}}円</span>
           <p>{{menu.itemInfo.description}}</p>
         </v-col>
         <v-col cols="2">
           <span class="num">{{ls_data[key].num || 0}}</span>
         </v-col>
-
       </v-row>
+    </v-div>
   </div>
 </template>
 <script>
 // https://omochikaeri.com/api/1.0/restaurants/5WmWRzIbF7ilJcigW7Vx/menus
 // https://omochikaeri.com/api/1.0/restaurants/{restaurant_id}/menus
-
+import OrderHeader from "./OrderHeader"
 export default {
+  components: {
+    OrderHeader
+  },
   data() {
     return {
       menus: [],

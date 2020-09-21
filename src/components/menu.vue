@@ -27,15 +27,10 @@
         </v-flex>
       </v-card>
     </v-dialog>
-    <v-row>
-      <v-col>
-        <h1>メニュー</h1>
-      </v-col>
-      <v-spacer></v-spacer>
-      <v-col>
-        <v-btn rounded large color="error" @click="link_order_accept" class="btn">{{ btnString }}</v-btn>
-      </v-col>
-    </v-row>
+    <order-header
+      @click="link_order_accept()"
+      :btn-string="btnString"
+    />
     <v-container v-for="(menu, key) in menus" :key="key">
       <v-divider />
       <v-row>
@@ -62,11 +57,13 @@
 }
 </style>
 <script>
+import OrderHeader from "./OrderHeader"
 // https://omochikaeri.com/api/1.0/restaurants/5WmWRzIbF7ilJcigW7Vx/menus
 // https://omochikaeri.com/api/1.0/restaurants/{restaurant_id}/menus
 
 export default {
   components: {
+    OrderHeader
   },
   data() {
     return {
