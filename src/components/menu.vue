@@ -99,10 +99,10 @@ export default {
       return selectItem.num * selectItem.price
     },
     totalNums() {
-      return this.ls_data.map(x => x.num).reduce((acc, cur) => acc + cur);
+      return this.ls_data.map(x => x.num).reduce((acc, cur) => acc + cur, 0);
     },
     btnString () {
-      const totalNums = this.ls_data.map(x => x.num).reduce((acc, cur) => acc + cur);
+      const totalNums = this.ls_data.map(x => x.num).reduce((acc, cur) => acc + cur, 0);
       if(totalNums) return "注文画面へ進む " + "(" + totalNums + ")";
       else return "注文画面へ進む";
     }
