@@ -40,7 +40,7 @@
       </v-col>
       <v-spacer></v-spacer>
       <v-col>
-        <v-btn rounded large color="primary" @click="link_order_accept" class="btn">注文画面へ進む</v-btn>
+        <v-btn rounded large color="primary" @click="link_order_accept" class="btn">{{ btnString }}</v-btn>
       </v-col>
     </v-row>
      <v-row v-for="(menu, key) in menus" :key="key">
@@ -95,8 +95,13 @@ export default {
       const selectItem = this.selectedItem
       return selectItem.num * selectItem.price
     },
-    totalNums: () => {
+    totalNums() {
       return this.ls_data.map(x => x.num).reduce((acc, cur) => acc + cur);
+    },
+    btnString () {
+      const totalNums = this.ls_data.map(x => x.num).reduce((acc, cur) => acc + cur);
+      if(totalNums) return "注文画面へ進む " + "(" + totalNums + ")";
+      else return "注文画面へ進む";
     }
   },
   methods: {
