@@ -1,7 +1,15 @@
 <template>
   <div id="app" class="container">
-    <h1>Menu List</h1>
-      <v-row v-for="(menu, key) in menus" :key="key">
+    <v-row>
+      <v-col>
+        <h1>Menu List</h1>
+      </v-col>
+      <v-spacer></v-spacer>
+      <v-col>
+        <v-btn rounded large color="primary" @click="link_order_accept" class="btn">注文画面へ進む</v-btn>
+      </v-col>
+    </v-row>
+     <v-row v-for="(menu, key) in menus" :key="key">
         <v-col cols="6">
           <v-img
             :src="menu.itemInfo.image"
@@ -19,18 +27,12 @@
   </div>
 </template>
 <style scoped>
-li{
-  padding: 30px auto;
+.top{
   display: flex;
+  justify-content: space-between;
 }
-li.img{
-  width: 360px;
-}
-li.name{
-  font-size: 24px;
-}
-li.price{
-  font-size: 24px;
+.btn{
+  float: right;
 }
 </style>
 <script>
@@ -47,6 +49,9 @@ export default {
     }
   },
   methods: {
+    link_order_accept: function(){
+      this.$router.push({ name: 'orderAccept', query: { restaurantId: this.$route.query.restaurantId }})
+    }
   },
   mounted: function(){
     const restaurant_id = this.$route.query.restaurantId;

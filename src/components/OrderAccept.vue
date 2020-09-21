@@ -9,7 +9,17 @@
         </v-toolbar>
       </v-card>
     </v-dialog>
-    <h1>Menu List</h1>
+
+    <v-row>
+      <v-col>
+        <h1>Order Menu</h1>
+      </v-col>
+      <v-spacer></v-spacer>
+      <v-col>
+        <v-btn rounded large color="primary"  @click="link_accounting" class="btn">注文を確定する</v-btn>
+      </v-col>
+    </v-row>
+
       <v-row v-for="(menu, key) in menus" :key="key">
         <v-col cols="6">
            <v-img
@@ -19,12 +29,16 @@
               class="grey darken-4"
             />
         </v-col>
-        <v-col cols="6">
-          <span class="name">{{ menu.itemInfo.name }}</span>
-          <span class="price">{{ menu.price.price }}円</span>
-          <span>{{ menu.itemInfo.description }}</span>
+        <v-col cols="4">
+          <span class="name">{{menu.itemInfo.name}}</span>
+          <span class="price">{{menu.price.price}}円</span>
+          <span>{{menu.itemInfo.description}}</span>
           <v-btn color="primary" click="onOpenDialog(key)">追加</v-btn>
         </v-col>
+        <v-col cols="2">
+          <span class="num">{{ls_data[key].num || 0}}</span>
+        </v-col>
+
       </v-row>
   </div>
 </template>
@@ -36,11 +50,15 @@ export default {
   data() {
     return {
       menus: [],
+      ls_data: [],
       showDialog: false,
       numOrder: 0,
     }
   },
   methods: {
+    link_accounting: function(){
+      this.$router.push({ name: 'account'})
+    },
     onOpenDialog(index) {
       console.log({index})
       this.showDialog=true
@@ -53,6 +71,8 @@ export default {
       mode: 'cors'
     }).then(response => response.json())
       .then(data => this.menus = data.payload.menus);
+
+    this.ls_data = JSON.parse(localStorage.getItem("items")) || [];
   }
 }
 </script>
