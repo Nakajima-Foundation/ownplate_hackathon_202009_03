@@ -19,7 +19,6 @@
         <v-btn rounded large color="primary"  @click="link_accounting" class="btn">注文を確定する</v-btn>
       </v-col>
     </v-row>
-
       <v-row v-for="(menu, key) in menus" :key="key">
         <v-col cols="6">
            <v-img
@@ -50,6 +49,9 @@ export default {
   data() {
     return {
       menus: [],
+      numOrder: 0,
+    }
+  },
       ls_data: [],
       showDialog: false,
       numOrder: 0,
