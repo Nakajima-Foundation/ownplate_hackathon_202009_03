@@ -31,7 +31,7 @@
         </v-row>
         <v-text-field
           class="mx-8"
-          label="金額???内税????"
+          label="金額"
           :value="itemTotal"
           background-color="white"
         />
