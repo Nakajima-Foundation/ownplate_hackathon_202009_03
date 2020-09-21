@@ -1,6 +1,8 @@
 import Home from "@/components/Home";
 import QrList from "@/components/QRList"
 import Accounting from '@/components/Accounting'
+import menu from "@/components/menu";
+import OrderAccept from "@/components/OrderAccept";
 
 
 export default [
@@ -23,4 +25,14 @@ export default [
     name: "qrlist",
     component: QrList,
   },
+  {
+    path: "/menu",
+    name: "menu",
+    component: menu,
+  },
+  {
+    path: "/order_accept",
+    name: "orderAccept",
+    component: OrderAccept,
+  }
 ];

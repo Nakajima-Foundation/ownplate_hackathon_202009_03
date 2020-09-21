@@ -5,6 +5,7 @@ import "@/plugins/axios";
 import "@/plugins/firebase"
 import vuetify from '@/plugins/vuetify'
 
+
 Vue.config.productionTip = false
 
 new Vue({
