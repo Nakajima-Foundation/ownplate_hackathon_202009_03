@@ -1,4 +1,5 @@
 import Home from "@/components/Home";
+import QrList from "@/components/QRList"
 
 export default [
   {
@@ -9,5 +10,10 @@ export default [
   {
     path: "*",
     redirect: "/",
+  },
+  {
+    path: "/qr-list",
+    name: "qrlist",
+    component: QrList,
   },
 ];
