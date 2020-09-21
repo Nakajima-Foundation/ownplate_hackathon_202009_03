@@ -50,11 +50,8 @@ export default {
     return {
       menus: [],
       numOrder: 0,
-    }
-  },
       ls_data: [],
       showDialog: false,
-      numOrder: 0,
     }
   },
   methods: {
