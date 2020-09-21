@@ -7,9 +7,9 @@
       mobile-breakpoint="0"
       :disable-sort="true"
       :headers="headers"
-      :items="items"
+      :items="items | validItem"
     ></v-data-table>
-    <div v-if="items !== null" class="sum_price">合計&emsp;¥{{ sumPrice }}</div>
+    <div v-if="items !== null" class="sum_price">合計&emsp;¥{{ sumPrice() }}</div>
     <div class="account_proceed">
       <v-btn class="to_menu" @click="toMenu" color="primary">追加注文</v-btn>
       <v-btn class="call_staff" @click="runAccount" color="error">お会計する</v-btn>
@@ -39,10 +39,50 @@ export default {
           value: "price",
         },
       ],
-      items: []
+      items: [],
     };
   },
-  computed: {
+  created() {
+    this.items = JSON.parse(localStorage.getItem("items"));
+  },
+  methods: {
+    runAccount() {
+      console.log("runAccount");
+      const arrivalTime = localStorage.getItem("start_time");
+      const customerNum = localStorage.getItem("customer_num");
+      const transportation = localStorage.getItem("transportation");
+      const departureTime = Date.now().toString();
+      const stayingTime = (parseInt(departureTime) - parseInt(arrivalTime)) / 1000;
+      const items = JSON.parse(localStorage.getItem("items"));
+      const sumPrice = this.sumPrice();
+      const restaurantId = this.$route.query.restaurant_id;
+      console.log(
+        restaurantId,
+        customerNum,
+        transportation,
+        arrivalTime,
+        departureTime,
+        stayingTime,
+        items,
+        sumPrice
+      );
+      // localStorage.clear();
+      db.collection("account/").add({
+        restaurantId,
+        customerNum,
+        transportation,
+        arrivalTime,
+        departureTime,
+        stayingTime,
+        items,
+        sumPrice
+      });
+      this.$router.push("/done");
+    },
+    toMenu() {
+      const restaurantId = this.$route.query.restaurant_id;
+      this.$router.push(`/menu?restaurant_id=${restaurantId}`);
+    },
     sumPrice() {
       let sum = 0;
       this.items.forEach((item) => {
@@ -51,32 +91,12 @@ export default {
       return sum;
     },
   },
-  async created() {
-    this.items = JSON.parse(localStorage.getItem("items")).items;
-  },
-  methods: {
-    runAccount() {
-      console.log("runAccount");
-      const startTime = localStorage.getItem("start_time");
-      const customerNum = localStorage.getItem("customer_num");
-      const transportation = localStorage.getItem("transportation");
-      const now = Date.now().toString();
-      const stayingTime = (parseInt(now) - parseInt(startTime)) / 1000;
-      const items = JSON.parse(localStorage.getItem("items"));
-      const sumPrice = this.sumPrice();
-      const restaurantId = this.$route.query.restaurantId;
-      localStorage.clear();
-      db.collection("account/").add({
-        restaurantId,
-        customerNum,
-        transportation,
-        stayingTime,
-        items,
-        sumPrice,
+  filters: {
+    validItem(items) {
+      if (items === []) return;
+      return items.filter((item) => {
+        return item.num !== 0;
       });
-    },
-    toMenu() {
-      this.$router.push("/menu");
     },
   },
 };

@@ -30,7 +30,7 @@ export default {
   },
   created() {
     const origin = window.location.origin
-    const restaurantId = this.$route.query.restaurantId
+    const restaurantId = this.$route.query.restaurant_id
     this.links = this.getLinks(origin, restaurantId)
   },
   methods: {
@@ -38,7 +38,7 @@ export default {
       const maxIssueNumber = 49
       const links = [...Array(maxIssueNumber)].map((_, i) => {
         const seatid = i < 42 ? i+1: 9999
-        const link = encodeURI(`${origin}/?restaurant-id=${restaurantId}&seat-id=${seatid}`)
+        const link = encodeURI(`${origin}/?restaurant_id=${restaurantId}&seat_id=${seatid}`)
         return link
       })
       return links
