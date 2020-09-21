@@ -1,23 +1,27 @@
 <template>
-  <div>
-    <div
+  <v-row>
+    <v-col
       v-for="(url, index) in links"
+      class="ma-4"
       :key="`qrcode-${index}`"
     >
-      <qr-code
-        :encodedUrl="url"
+      <p v-if="index<42" style="text-align:center;">{{ index+1 }}</p>
+      <p v-else style="text-align:center;">席番号無し</p>
+      <vue-qrcode
+        :value="url"
+        :option="{width: '15%'}"
       />
-    </div>
-  </div>
+    </v-col>
+  </v-row>
 </template>
 <style scoped>
 </style>
 <script>
 // import axios from 'axios'
-import QrCode from "@/components/TheQrCode"
+import VueQrcode from "@chenfengyuan/vue-qrcode";
 export default {
   components: {
-    QrCode
+    VueQrcode
   },
   data() {
     return {
@@ -26,15 +30,15 @@ export default {
   },
   created() {
     const origin = window.location.origin
-    const restrantId = this.$route.query.restrantid
-    this.links = this.getLinks(origin, restrantId)
+    const restaurantId = this.$route.query.restaurantId
+    this.links = this.getLinks(origin, restaurantId)
   },
   methods: {
-    getLinks(origin, restrantId) {
-      const maxIssueNumber = 50
+    getLinks(origin, restaurantId) {
+      const maxIssueNumber = 48
       const links = [...Array(maxIssueNumber)].map((_, i) => {
-        const seatid = i + 1
-        const link = encodeURI(`${origin}/menu?restrantid=${restrantId}&seatid=${seatid}`)
+        const seatid = i < 42 ? seatid: 9999
+        const link = encodeURI(`${origin}/menu?restaurantid=${restaurantId}&seatid=${seatid}`)
         return link
 
       })

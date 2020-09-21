@@ -1,6 +1,7 @@
 import Home from "@/components/Home";
 import QrList from "@/components/QRList"
 import menu from "@/components/menu";
+import OrderAccept from "@/components/OrderAccept";
 
 
 export default [
@@ -23,4 +24,9 @@ export default [
     name: "menu",
     component: menu,
   },
+  {
+    path: "/order_accept",
+    name: "orderAccept",
+    component: OrderAccept,
+  }
 ];

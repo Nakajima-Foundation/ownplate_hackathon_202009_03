@@ -3,11 +3,11 @@
     <h1>Menu List</h1>
       <v-row v-for="(menu, key) in menus" :key="key">
         <v-col cols="6">
-          <v-img
-            :src="menu.itemInfo.image"
-            style="width: 20%"
-            contain
-            class="grey darken-4"
+           <v-img
+              :src="menu.itemInfo.image"
+              width="20%"
+              contain
+              class="grey darken-4"
             />
         </v-col>
         <v-col cols="6">
