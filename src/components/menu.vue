@@ -48,6 +48,11 @@ export default {
   },
   methods: {
   },
+  computed: {
+    totalNums: () => {
+      return this.ls_data.map(x => x.num).reduce((acc, cur) => acc + cur);
+    }
+  },
   mounted: function(){
     const restaurant_id = this.$route.query.restaurantId;
     const url = `https://omochikaeri.com/api/1.0/restaurants/${restaurant_id}/menus`;
