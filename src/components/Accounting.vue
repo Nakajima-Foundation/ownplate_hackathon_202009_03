@@ -2,7 +2,7 @@
   <div class="accounting">
     <h2 class="title">確認</h2>
     <v-data-table
-    class="account_table"
+      class="account_table"
       :hide-default-footer="true"
       mobile-breakpoint="0"
       :disable-sort="true"
@@ -68,25 +68,20 @@ export default {
     },
     runAccount() {
       console.log("runAccount");
+      const startTime = localStorage.getItem("start_time");
+      const customerNum = localStorage.getItem("customer_num");
+      const transportation = localStorage.getItem("transportation");
+      const now = Date.now().toString();
+      const stayingTime = (parseInt(now) - parseInt(startTime)) / 1000;
+      const items = JSON.parse(localStorage.getItem("items"));
+      const sumPrice = this.sumPrice();
+      localStorage.clear();
       db.collection("account/").add({
-        items: [
-          {
-            name: "麻婆豆腐",
-            num: 1,
-            price: 800,
-          },
-          {
-            name: "油淋鶏",
-            num: 1,
-            price: 700,
-          },
-          {
-            name: "炒飯",
-            num: 1,
-            price: 750,
-          },
-        ],
-        sum_price: this.sumPrice(),
+        customerNum,
+        transportation,
+        stayingTime,
+        items,
+        sumPrice,
       });
     },
     toMenu() {
@@ -101,7 +96,7 @@ export default {
   font-weight: normal;
 }
 .account_table {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 .accounting {
   margin-top: 30px;

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>いらっしゃいませ</h1>
-    <h2 v-if="restaurant !== null">{{ restaurant.info.name }}{{ seatId }}席</h2>
+    <!-- <h2 v-if="restaurant !== null">{{ restaurant.info.name }}{{ seatId }}席</h2> -->
     <p>何名様ですか？</p>
     <div class="customer_num_container">
       <v-btn color="success" text class="customer_minus-button" @click="minus">−</v-btn>
@@ -13,44 +13,59 @@
     <label for="car">はい</label>
     <input type="radio" value="etc" id="etc" class="etc" v-model="transportation" />
     <label for="etc">いいえ</label>
-    <v-btn to="menu" class="to_menu">メニューに進む</v-btn>
+    <v-btn @click="toMenu" class="to_menu">メニューに進む</v-btn>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home',
-  data: function() {
-   return{
-     customer_num: 0,
-     transportation: "",
-     restaurants: null,
-     restaurant: null,
-     seatId: ""
-   }
+  name: "Home",
+  data: function () {
+    return {
+      customer_num: 0,
+      transportation: "",
+      restaurants: null,
+      restaurant: null,
+      seatId: "",
+    };
   },
-  created: async function(){
+  created: async function () {
     const restaurantId = this.$route.query.restaurantId;
-    this.seatId = this.$route.query.seatid
+    this.seatId = this.$route.query.seatid;
     const url = `https://omochikaeri.com/api/1.0/restaurants/`;
-    const response = await fetch(url, {mode: 'cors'})
-    const responseJson = await response.json()
-    this.restaurants = responseJson.payload.restaurants
-    this.restaurant = this.restaurants.find(restaurant => restaurant.id === restaurantId)
-
+    const response = await fetch(url, { mode: "cors" });
+    const responseJson = await response.json();
+    this.restaurants = responseJson.payload.restaurants;
+    this.restaurant = this.restaurants.find(
+      (restaurant) => restaurant.id === restaurantId
+    );
   },
   methods: {
-    minus() {
-      if(this.customer_num < 1) {
-        return
+    toMenu() {
+      if (this.customer_num === 0) {
+        alert("『何名様ですか？』を入力してください");
+        return;
       }
-      this.customer_num -= 1
+      if (this.transportation === "") {
+        alert("『お車でお越しですか？』を入力してください");
+        return;
+      }
+      localStorage.setItem("start_time", Date.now().toString());
+      localStorage.setItem("customer_num", this.customer_num);
+      localStorage.setItem("transportation", this.transportation);
+      this.$router.push("/menu");
+    },
+    minus() {
+      if (this.customer_num < 1) {
+        return;
+      }
+      this.customer_num -= 1;
     },
     plus() {
-      this.customer_num += 1
-    }
-  }
-}
+      this.customer_num += 1;
+    },
+  },
+};
 </script>
 
 <style scoped>
