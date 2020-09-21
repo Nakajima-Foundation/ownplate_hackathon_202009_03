@@ -96,7 +96,7 @@ export default {
   computed: {
     itemTotal() {
       const selectItem = this.selectedItem
-      return selectItem.num * selectItem.price
+      return selectItem.num * selectItem.price || 0
     },
     totalNums() {
       return this.ls_data.map(x => x.num).reduce((acc, cur) => acc + cur, 0);
