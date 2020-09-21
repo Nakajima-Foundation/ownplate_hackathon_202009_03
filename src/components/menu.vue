@@ -1,5 +1,8 @@
 <template>
   <div id="app" class="container">
+    <v-row>
+      aaaaa
+    </v-row>
     <h1>Menu List</h1>
     <ul>
       <li v-for="(menu, key) in menus" :key="key">
