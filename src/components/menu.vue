@@ -44,7 +44,8 @@ export default {
   },
   data() {
     return {
-      menus: []
+      menus: [],
+      ls_data: []
     }
   },
   methods: {
@@ -58,7 +59,11 @@ export default {
     fetch(url, {
       mode: 'cors'
     }).then(response => response.json())
-      .then(data => this.menus = data.payload.menus);
+      .then(data => {
+        this.menus = data.payload.menus;
+        this.ls_data = this.menus.map(x => ({name: x.itemInfo.name, num: 0, price: x.price.price}));
+        localStorage.setItem("items", JSON.stringify(this.ls_data));
+      });
   }
 }
 </script>
