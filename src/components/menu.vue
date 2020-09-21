@@ -1,23 +1,13 @@
 <template>
   <div id="app" class="container">
-    <v-dialog
-      v-model="showDialog"
-      max-width="500"
-      height="300px"
-    >
+    <v-dialog v-model="showDialog" max-width="500" height="300px">
       <v-card>
-        <v-toolbar dark>
-          {{ selectedItem.name }}
-        </v-toolbar>
+        <v-toolbar dark>{{ selectedItem.name }}</v-toolbar>
         <v-row no-gutters class="align-baseline">
           <v-col offset="2" cols="2">
             <v-btn @click="changeCountNum(-1)">-</v-btn>
           </v-col>
-          <v-col
-            color="primary"
-            offset="1"
-            cols="2"
-          >
+          <v-col color="primary" offset="1" cols="2">
             <v-text-field
               label="個数"
               v-model="selectedItem.num"
@@ -29,12 +19,12 @@
             <v-btn @click="changeCountNum(1)">+</v-btn>
           </v-col>
         </v-row>
-        <v-text-field
-          class="mx-8"
-          label="金額"
-          :value="itemTotal"
-          background-color="white"
-        />
+        <v-flex offset-xs1 xs10>
+          <v-text-field class="mx-8" label="金額" :value="itemTotal" background-color="white" />
+        </v-flex>
+        <v-flex offset-xs9 xs3 class="pb-4">
+          <v-btn @click="showDialog=false">閉じる</v-btn>
+        </v-flex>
       </v-card>
     </v-dialog>
     <v-row>
@@ -46,35 +36,28 @@
         <v-btn rounded large color="error" @click="link_order_accept" class="btn">{{ btnString }}</v-btn>
       </v-col>
     </v-row>
-     <v-row v-for="(menu, key) in menus" :key="key">
+    <v-container v-for="(menu, key) in menus" :key="key">
+      <v-divider />
+      <v-row>
         <v-col cols="6">
-          <v-img
-            :src="menu.itemInfo.image"
-            style="width: 60%"
-            contain
-            class="grey darken-4"
-            />
+          <v-img :src="menu.itemInfo.image" style="width: 60%" contain class="grey darken-4" />
         </v-col>
         <v-col cols="6">
-          <span class="name font-weight-bold">{{menu.itemInfo.name}} </span>
+          <span class="name font-weight-bold">{{menu.itemInfo.name}}</span>
           <span class="price font-weight-bold">{{menu.price.price}}円</span>
           <p>{{menu.itemInfo.description}}</p>
-          <v-btn
-            color="primary"
-            @click="onOpenDialog(key)"
-          >
-            追加
-          </v-btn>
+          <v-btn color="primary" @click="onOpenDialog(key)">追加</v-btn>
         </v-col>
       </v-row>
+    </v-container>
   </div>
 </template>
 <style scoped>
-.top{
+.top {
   display: flex;
   justify-content: space-between;
 }
-.btn{
+.btn {
   float: right;
 }
 </style>
