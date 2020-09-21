@@ -106,7 +106,8 @@ p {
   margin-left: 30px;
 }
 .to_menu {
-  width: 150px;
+  width: 160px;
+  height: 50px;
   font-size: 23px;
   margin-top: 30px;
   display: block;
