@@ -32,7 +32,6 @@
           <span class="name">{{menu.itemInfo.name}}</span>
           <span class="price">{{menu.price.price}}円</span>
           <span>{{menu.itemInfo.description}}</span>
-          <v-btn color="primary" click="onOpenDialog(key)">追加</v-btn>
         </v-col>
         <v-col cols="2">
           <span class="num">{{ls_data[key].num || 0}}</span>

@@ -33,8 +33,7 @@
           />
       </v-card>
     </v-dialog>
-    <h1>Menu List</h1>
-      <v-row v-for="(menu, key) in menus" :key="key">
+    <v-row>
       <v-col>
         <h1>Menu List</h1>
       </v-col>
