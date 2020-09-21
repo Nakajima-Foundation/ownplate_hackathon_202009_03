@@ -1,5 +1,15 @@
 <template>
   <div id="app" class="container">
+    <v-dialog
+      v-model="showDialog"
+      dark
+    >
+      <v-card>
+        <v-toolbar dark>
+        </v-toolbar>
+      </v-card>
+    </v-dialog>
+
     <v-row>
       <v-col>
         <h1>Order Menu</h1>
@@ -9,51 +19,49 @@
         <v-btn rounded large color="primary"  @click="link_accounting" class="btn">注文を確定する</v-btn>
       </v-col>
     </v-row>
-    <v-row v-for="(menu, key) in menus" :key="key">
-      <v-col cols="6">
-          <v-img
-            :src="menu.itemInfo.image"
-            width="20%"
-            contain
-            class="grey darken-4"
-          />
-      </v-col>
-      <v-col cols="4">
-        <span class="name">{{menu.itemInfo.name}}</span>
-        <span class="price">{{menu.price.price}}円</span>
-        <p>{{menu.itemInfo.description}}</p>
-      </v-col>
-      <v-col cols="2">
-        <span class="num">{{ls_data[key].num || 0}}</span>
-      </v-col>
-    </v-row>
+
+      <v-row v-for="(menu, key) in menus" :key="key">
+        <v-col cols="6">
+           <v-img
+              :src="menu.itemInfo.image"
+              width="60%"
+              contain
+              class="grey darken-4"
+            />
+        </v-col>
+        <v-col cols="4">
+          <span class="name">{{menu.itemInfo.name}}</span>
+          <span class="price">{{menu.price.price}}円</span>
+          <span>{{menu.itemInfo.description}}</span>
+          <v-btn color="primary" click="onOpenDialog(key)">追加</v-btn>
+        </v-col>
+        <v-col cols="2">
+          <span class="num">{{ls_data[key].num || 0}}</span>
+        </v-col>
+
+      </v-row>
   </div>
 </template>
-<style scoped>
-.top{
-  display: flex;
-  justify-content: space-between;
-}
-.btn{
-  float: right;
-}
-</style>
 <script>
 // https://omochikaeri.com/api/1.0/restaurants/5WmWRzIbF7ilJcigW7Vx/menus
 // https://omochikaeri.com/api/1.0/restaurants/{restaurant_id}/menus
 
 export default {
-  components: {
-  },
   data() {
     return {
       menus: [],
-      ls_data: []
+      ls_data: [],
+      showDialog: false,
+      numOrder: 0,
     }
   },
   methods: {
     link_accounting: function(){
       this.$router.push({ name: 'account'})
+    },
+    onOpenDialog(index) {
+      console.log({index})
+      this.showDialog=true
     }
   },
   mounted: function(){
