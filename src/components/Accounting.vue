@@ -9,7 +9,7 @@
       :headers="headers"
       :items="items"
     ></v-data-table>
-    <div class="sum_price">合計&emsp;¥{{ sumPrice() }}</div>
+    <div v-if="items !== null" class="sum_price">合計&emsp;¥{{ sumPrice }}</div>
     <div class="account_proceed">
       <v-btn class="to_menu" @click="toMenu" color="primary">追加注文</v-btn>
       <v-btn class="call_staff" @click="runAccount" color="error">お会計する</v-btn>
@@ -39,33 +39,22 @@ export default {
           value: "price",
         },
       ],
-      items: [
-        {
-          name: "麻婆豆腐",
-          num: 1,
-          price: 800,
-        },
-        {
-          name: "油淋鶏",
-          num: 1,
-          price: 700,
-        },
-        {
-          name: "炒飯",
-          num: 1,
-          price: 750,
-        },
-      ],
+      items: []
     };
   },
-  methods: {
+  computed: {
     sumPrice() {
       let sum = 0;
       this.items.forEach((item) => {
-        sum += item.price;
+        sum += item.price * item.num;
       });
       return sum;
     },
+  },
+  async created() {
+    this.items = JSON.parse(localStorage.getItem("items")).items;
+  },
+  methods: {
     runAccount() {
       console.log("runAccount");
       const startTime = localStorage.getItem("start_time");
@@ -75,8 +64,10 @@ export default {
       const stayingTime = (parseInt(now) - parseInt(startTime)) / 1000;
       const items = JSON.parse(localStorage.getItem("items"));
       const sumPrice = this.sumPrice();
+      const restaurantId = this.$route.query.restaurantId;
       localStorage.clear();
       db.collection("account/").add({
+        restaurantId,
         customerNum,
         transportation,
         stayingTime,
