@@ -1,7 +1,9 @@
 <template>
   <div id="app" class="container">
     <v-row>
-      aaaaa
+      <v-col cols="12">
+        aaaaa
+      </v-col>
     </v-row>
     <h1>Menu List</h1>
     <ul>
