@@ -12,7 +12,7 @@
 
     <v-row>
       <v-col>
-        <h1>Order Menu</h1>
+        <h1>メニュー</h1>
       </v-col>
       <v-spacer></v-spacer>
       <v-col/>

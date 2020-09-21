@@ -39,7 +39,7 @@
     </v-dialog>
     <v-row>
       <v-col>
-        <h1>Menu List</h1>
+        <h1>メニュー</h1>
       </v-col>
       <v-spacer></v-spacer>
       <v-col>
