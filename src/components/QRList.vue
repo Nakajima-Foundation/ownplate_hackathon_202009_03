@@ -37,7 +37,7 @@ export default {
     getLinks(origin, restaurantId) {
       const maxIssueNumber = 49
       const links = [...Array(maxIssueNumber)].map((_, i) => {
-        const seatid = i < 42 ? seatid: 9999
+        const seatid = i < 42 ? i+1: 9999
         const link = encodeURI(`${origin}?restaurant-id=${restaurantId}&seat-id=${seatid}`)
         return link
 
