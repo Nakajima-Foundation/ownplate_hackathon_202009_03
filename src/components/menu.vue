@@ -1,7 +1,10 @@
 <template>
   <div id="app" class="container">
     <v-row>
-      <v-col cols="12">
+      <v-col cols="6">
+        aaaaa
+      </v-col>
+      <v-col cols="6">
         aaaaa
       </v-col>
     </v-row>
