@@ -7,7 +7,8 @@
     </v-dialog>
 
     <order-header @click="link_accounting()" btn-string="注文を確定する" />
-    <v-container v-for="(menu, key) in menus" :key="key">
+
+    <v-div v-for="(menu, key) in menus" :key="key">
       <v-divider />
 
       <v-row>
@@ -23,7 +24,7 @@
           <span class="num">{{ls_data[key].num || 0}}</span>
         </v-col>
       </v-row>
-    </v-container>
+    </v-div>
   </div>
 </template>
 <script>

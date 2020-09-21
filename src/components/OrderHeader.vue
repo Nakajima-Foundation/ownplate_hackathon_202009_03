@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="order-header">
     <v-col>
       <h1>メニュー</h1>
     </v-col>
@@ -9,7 +9,14 @@
     </v-col>
   </v-row>
 </template>
-
+<style scoped>
+.order-header{
+    z-index:98;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+}
+</style>
 <script>
 export default {
   props: {
