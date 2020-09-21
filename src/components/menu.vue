@@ -3,13 +3,18 @@
     <h1>Menu List</h1>
       <v-row v-for="(menu, key) in menus" :key="key">
         <v-col cols="6">
-          <img :src="menu.itemInfo.image" />
+          <v-img
+            :src="menu.itemInfo.image"
+            style="width: 20%"
+            contain
+            class="grey darken-4"
+            />
         </v-col>
         <v-col cols="6">
           <span class="name">{{menu.itemInfo.name}}</span>
           <span class="price">{{menu.price.price}}円</span>
           <p>{{menu.itemInfo.description}}</p>
-        </v-col>   
+        </v-col>
       </v-row>
   </div>
 </template>
