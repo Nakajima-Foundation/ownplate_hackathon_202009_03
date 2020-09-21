@@ -31,7 +31,7 @@
         </v-row>
         <v-text-field
           class="mx-8"
-          label="金額???内税????"
+          label="金額"
           :value="itemTotal"
           background-color="white"
         />
@@ -50,7 +50,7 @@
         <v-col cols="6">
           <v-img
             :src="menu.itemInfo.image"
-            style="width: 20%"
+            style="width: 60%"
             contain
             class="grey darken-4"
             />
