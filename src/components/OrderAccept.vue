@@ -17,7 +17,7 @@
       <v-spacer></v-spacer>
       <v-col/>
       <v-col>
-        <v-btn rounded large color="primary"  @click="link_accounting" class="btn">注文を確定する</v-btn>
+        <v-btn rounded large color="error"  @click="link_accounting" class="btn">注文を確定する</v-btn>
       </v-col>
     </v-row>
       <v-row v-for="(menu, key) in menus" :key="key">
@@ -30,9 +30,9 @@
             />
         </v-col>
         <v-col cols="4">
-          <span class="name">{{menu.itemInfo.name}}</span>
-          <span class="price">{{menu.price.price}}円</span>
-          <span>{{menu.itemInfo.description}}</span>
+          <span class="name font-weight-bold">{{menu.itemInfo.name}} </span>
+          <span class="price font-weight-bold">{{menu.price.price}}円</span>
+          <p>{{menu.itemInfo.description}}</p>
         </v-col>
         <v-col cols="2">
           <span class="num">{{ls_data[key].num || 0}}</span>
