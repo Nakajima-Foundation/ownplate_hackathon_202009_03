@@ -1,39 +1,41 @@
 <template>
   <div id="app" class="container">
-    <h1>Menu List</h1>
-      <v-row v-for="(menu, key) in menus" :key="key">
-        <v-col cols="6">
-           <v-img
-              :src="menu.itemInfo.image"
-              width="20%"
-              contain
-              class="grey darken-4"
-            />
-        </v-col>
-        <v-col cols="4">
-          <span class="name">{{menu.itemInfo.name}}</span>
-          <span class="price">{{menu.price.price}}円</span>
-          <p>{{menu.itemInfo.description}}</p>
-        </v-col>
-        <v-col cols="2">
-          <span class="num">{{ls_data[key].num || 0}}</span>
-        </v-col>
-      </v-row>
+    <v-row>
+      <v-col>
+        <h1>Menu List</h1>
+      </v-col>
+      <v-spacer></v-spacer>
+      <v-col>
+        <v-btn rounded large  @click="link_" class="btn">注文を確定する</v-btn>
+      </v-col>
+    </v-row>
+    <v-row v-for="(menu, key) in menus" :key="key">
+      <v-col cols="6">
+          <v-img
+            :src="menu.itemInfo.image"
+            width="20%"
+            contain
+            class="grey darken-4"
+          />
+      </v-col>
+      <v-col cols="4">
+        <span class="name">{{menu.itemInfo.name}}</span>
+        <span class="price">{{menu.price.price}}円</span>
+        <p>{{menu.itemInfo.description}}</p>
+      </v-col>
+      <v-col cols="2">
+        <span class="num">{{ls_data[key].num || 0}}</span>
+      </v-col>
+    </v-row>
   </div>
 </template>
 <style scoped>
-li{
-  padding: 30px auto;
+.top{
   display: flex;
+  justify-content: space-between;
 }
-li.img{
-  width: 360px;
-}
-li.name{
-  font-size: 24px;
-}
-li.price{
-  font-size: 24px;
+.btn{
+  float: right;
 }
 </style>
 <script>
